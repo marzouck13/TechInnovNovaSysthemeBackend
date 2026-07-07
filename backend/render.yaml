@@ -21,6 +21,3 @@ services:
 
     # Endpoint de vérification de l'état du service
     healthCheckPath: /sante
-
-    # Temps maximum de démarrage (optionnel)
-    startupTimeout: 300
