@@ -1,23 +1,21 @@
-# render.yaml – Configuration du backend Nova Systems
-# Ce fichier permet à Render de déployer automatiquement votre API.
-
+# render.yaml
 services:
   - type: web
     name: nova-backend
     runtime: python
-    plan: free                     # Utilisez "starter" ou un plan payant pour plus de ressources
-    branch: main                   # Branche à déployer
-    buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    plan: free
+    branch: main
 
-    # Variables d'environnement – à définir dans l'interface Render (valeurs masquées)
+    #  Indique le dossier où se trouve le code
+    buildCommand: cd backend && pip install -r requirements.txt
+    startCommand: cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT
+
     envVars:
       - key: SUPABASE_URL
-        sync: false                # Saisie manuelle dans l'interface
+        sync: false
       - key: SUPABASE_KEY
         sync: false
       - key: SECRET_KEY
         sync: false
 
-    # Endpoint de vérification de l'état du service
     healthCheckPath: /sante
